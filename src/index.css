@@ -7,6 +7,17 @@ ol, ul {
   padding-left: 30px;
 }
 
+ol button {
+  border: none;
+  background-color: white;
+  padding: 0;
+}
+
+.btn-active{
+  font-weight: bold;
+  color: red;
+}
+
 .board-row:after {
   clear: both;
   content: "";
@@ -30,6 +41,10 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+}
+
+.square-winner {
+  color: red;
 }
 
 .square:focus {
