@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Board } from "./Board";
 import { History } from './History'
 
+export const Default = "Game Component";
+
 export class Game extends Component {
     constructor(props) {
         super(props);
@@ -19,7 +21,7 @@ export class Game extends Component {
         const { winner, history, stepNumber, xIsNext, squares } = this.state;
 
         const newHistory = history.slice(0, stepNumber + 1)
-        let newSquares = [];
+        const newSquares = [];
         squares.map(value => newSquares.push(value.slice()));
 
 
@@ -38,7 +40,7 @@ export class Game extends Component {
 
     jumpTo(step) {
         const { history } = this.state
-        let newSquares = Array(20).fill(null).map(() => Array(20).fill(null))
+        const newSquares = Array(20).fill(null).map(() => Array(20).fill(null))
 
         if (step > 0) {
             for (let index = 1; index <= step; index++) {
@@ -47,7 +49,7 @@ export class Game extends Component {
             }
         }
 
-        var index = history[step]
+        const index = history[step]
         const winnerS = calculateWinner(index.i || 0, index.j || 0, newSquares)
 
 
@@ -64,9 +66,9 @@ export class Game extends Component {
         const { history, winner, xIsNext, squares, stepNumber, winnerSquares } = this.state;
         let status;
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = `Winner: ${winner}`;
         } else {
-            status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+            status = `Next player: ${xIsNext ? 'X' : 'O'}`;
         }
         return (
             <div className="game">
@@ -84,18 +86,18 @@ export class Game extends Component {
 }
 
 const calculateWinner = (i, j, squares) => {
-    let result = Array(20).fill(null).map(() => Array(20).fill(null))
+    const result = Array(20).fill(null).map(() => Array(20).fill(null))
 
     let count = 0;
     const pValue = squares[i][j]
-    let index = { i: i, j: (j - 4 < 0) ? 0 : j - 4 }
+    let index = { i, j: (j - 4 < 0) ? 0 : j - 4 }
 
     if (!pValue)
         return result
 
-    //check row
+    /* check row */
     while (index.j <= j) {
-        let run = { i: index.i, j: index.j }
+        const run = { i: index.i, j: index.j }
         while (count < 5) {
 
             if (!checkIndex(run) || pValue !== squares[run.i][run.j]) {
@@ -116,19 +118,19 @@ const calculateWinner = (i, j, squares) => {
                     count--;
                 }
                 return result
-            } else {
-                count = 0
             }
+            count = 0
+
         }
 
         index.j++;
 
     }
 
-    //check column
-    index = { i: (i - 4 < 0) ? 0 : i - 4, j: j }
+    // check column
+    index = { i: (i - 4 < 0) ? 0 : i - 4, j }
     while (index.i <= i) {
-        let run = { i: index.i, j: index.j }
+        const run = { i: index.i, j: index.j }
         while (count < 5) {
             if (!checkIndex(run) || squares[i][j] !== squares[run.i][run.j]) {
                 count = 0
@@ -149,15 +151,15 @@ const calculateWinner = (i, j, squares) => {
                 }
                 return result
             }
-            else
-                count = 0
+
+            count = 0
 
 
 
         }
         index.i++;
     }
-    //check diagonal up right
+    // check diagonal up right
     if (19 - i < 4 || j < 4) {
         if (19 - i < j) {
             index = { i: 19, j: j - 19 + i }
@@ -170,7 +172,7 @@ const calculateWinner = (i, j, squares) => {
     }
 
     while (index.j <= j) {
-        let run = { i: index.i, j: index.j }
+        const run = { i: index.i, j: index.j }
         while (count < 5) {
             if (!checkIndex(run) || squares[i][j] !== squares[run.i][run.j]) {
                 count = 0
@@ -194,8 +196,7 @@ const calculateWinner = (i, j, squares) => {
                 }
                 return result
             }
-            else
-                count = 0
+            count = 0
         }
         index.i--;
         index.j++;
@@ -214,7 +215,7 @@ const calculateWinner = (i, j, squares) => {
     }
 
     while (index.j <= j) {
-        let run = { i: index.i, j: index.j }
+        const run = { i: index.i, j: index.j }
         while (count < 5) {
             if (!checkIndex(run) || squares[i][j] !== squares[run.i][run.j]) {
                 count = 0
@@ -237,8 +238,8 @@ const calculateWinner = (i, j, squares) => {
                 }
                 return result
             }
-            else
-                count = 0
+
+            count = 0
         }
         index.i++;
         index.j++;

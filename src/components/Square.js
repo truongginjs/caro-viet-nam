@@ -1,6 +1,9 @@
 import React from 'react'
 
+export const Default = "Square component";
+
 export const Square = (props) => {
-    return (<button className={props.winner ? "square square-winner" : "square"} onClick={() => props.onClick()}>{props.value}</button>)
+    const { winner, value, onClick } = props;
+    return (<button type="button" className={winner ? "square square-winner" : "square"} onClick={() => onClick()}>{value}</button>)
 }
-//{(props.winner) ?  : "square square-winner"}
+// {(props.winner) ?  : "square square-winner"}

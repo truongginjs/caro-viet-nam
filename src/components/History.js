@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+export const Default = "History component";
 export class History extends Component {
 
     constructor(props) {
@@ -10,22 +11,22 @@ export class History extends Component {
     }
 
     changeSoft() {
-
+        const {isAscending} = this.state
         this.setState({
-            isAscending: !this.state.isAscending
+            isAscending: !isAscending
         })
     }
 
     render() {
         const { isAscending } = this.state;
         const { listHistory, stepNumber, jumpTo } = this.props;
-        let moves = listHistory.map((his, move) => {
-            const desc = move ?
+        const moves = listHistory.map((his, index) => {
+            const desc = index ?
                 `value: ${his.value}; index: (${his.i} : ${his.j})` :
                 'Go to game start';
             return (
-                <li key={move}>
-                    <button className={(stepNumber === move) ? "btn-active" : ""} onClick={() => jumpTo(move)}>{desc}</button>
+                <li key={String(index)}>
+                    <button type="button" className={(stepNumber === index) ? "btn-active" : ""} onClick={() => jumpTo(index)}>{desc}</button>
                 </li>
             );
         });
@@ -34,7 +35,7 @@ export class History extends Component {
 
         return (<div>
             <ol>{(isAscending)?moves:moves.reverse()}</ol>
-            <button onClick={() => this.changeSoft()}>{isAscending ? "ascending" : "decreasing"}</button>
+            <button type="button" onClick={() => this.changeSoft()}>{isAscending ? "ascending" : "decreasing"}</button>
         </div>)
     }
 }

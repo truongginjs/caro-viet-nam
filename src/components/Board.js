@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { Square } from './Square'
 
+export const Default = "Board component";
 export class Board extends Component {
 
     renderSquare(i, j) {
+        const {squares,winnerSquares,handleClick} = this.props;
         return (
             <Square key={20 * i + j}
-                value={this.props.squares[i][j]}
-                winner={this.props.winnerSquares[i][j]}
-                onClick={() => this.props.handleClick(i, j)}
+                value={squares[i][j]}
+                winner={winnerSquares[i][j]}
+                onClick={() => handleClick(i, j)}
             />
         );
     }
@@ -17,7 +19,7 @@ export class Board extends Component {
         const arr = Array(20).fill(null)
         return (
             <div>
-                {arr.map((_, i) => <div className="board-row" key={i}>{arr.map((_, j) => this.renderSquare(i, j))}</div>)}
+                {arr.map((t1, index) => <div className="board-row" key={String(index)}>{arr.map((t2, j) => this.renderSquare(index, j))}</div>)}
             </div>
         );
     }
