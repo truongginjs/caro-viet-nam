@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 
-export const Default = "History component";
-export class History extends Component {
+export default class History extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            isAscending: false        }
+            isAscending: false
+        }
     }
 
     changeSoft() {
-        const {isAscending} = this.state
+        const { isAscending } = this.state
         this.setState({
             isAscending: !isAscending
         })
@@ -34,7 +34,7 @@ export class History extends Component {
 
 
         return (<div>
-            <ol>{(isAscending)?moves:moves.reverse()}</ol>
+            <ol>{(isAscending) ? moves : moves.reverse()}</ol>
             <button type="button" onClick={() => this.changeSoft()}>{isAscending ? "ascending" : "decreasing"}</button>
         </div>)
     }
